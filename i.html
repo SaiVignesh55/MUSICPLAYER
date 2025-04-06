@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="i.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="images/top-charts.jpg"> <!-- Placeholder image -->
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-music"></i>
+                <h2> Music Player</h2>
+            </div>
+            <!-- Add search bar -->
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="🔍 Search songs or albums...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active" data-view="home"><i class="fas fa-home"></i> 🏠 Home</li>
+                    <li data-view="albums"><i class="fas fa-compact-disc"></i> 💿 Albums</li>
+                    <li data-view="favorites"><i class="fas fa-heart"></i> ❤️ Favorites</li>
+                    <li data-view="search-results" class="hidden"><i class="fas fa-search"></i> 🔍 Search Results</li>
+                    <li data-view="recently-played"><i class="fas fa-history"></i> 🕒 Recently Played</li>
+                    <li data-view="top-charts"><i class="fas fa-chart-line"></i> 📈 Top Charts</li>
+                </ul>
+            </nav>
+            <div class="user-section">
+                <div class="user-icon" id="user-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="login-status" id="login-status">
+                    <span>👤 Not logged in</span>
+                </div>
+                <!-- Add logout button -->
+                <button id="logout-btn" class="logout-btn hidden">
+                    <i class="fas fa-sign-out-alt"></i> 🚪
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Login Modal -->
+            <div class="login-modal" id="login-modal">
+                <div class="login-form">
+                    <h2>🔑 Login</h2>
+                    <div class="close-modal"><i class="fas fa-times"></i></div>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="username">👤 Username</label>
+                            <input type="text" id="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">🔒 Password</label>
+                            <input type="password" id="password" required>
+                        </div>
+                        <button type="submit" class="login-btn">🔓 Login</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Search Results View -->
+            <div class="view hidden" id="search-results-view">
+                <h1>🔍 Search Results</h1>
+                <div class="search-results-container">
+                    <div class="search-section">
+                        <h2>🎧 Songs</h2>
+                        <ul id="song-results" class="search-results-list"></ul>
+                    </div>
+                    <div class="search-section">
+                        <h2>💿 Albums</h2>
+                        <div id="album-results" class="albums-grid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home View -->
+            <div class="view" id="home-view">
+                <h1>🎧 Now Playing</h1>
+                <div class="now-playing">
+                    <div class="album-cover">
+                        <img id="current-album-cover" src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Album Cover">
+                    </div>
+                    <div class="song-details">
+                        <h2 id="current-song-title">Ayudha Pooja</h2>
+                        <p id="current-song-artist">🎤 Anirudh Ravichander</p>
+                        <p id="current-album-title">💿 Devara</p>
+                    </div>
+                </div>
+
+                <div class="player-controls">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="progress"></div>
+                        </div>
+                        <div class="time">
+                            <span id="current-time">⏱️ 0:00</span>
+                            <span id="duration">⏱️ 3:30</span>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button id="prev-btn"><i class="fas fa-backward"></i> </button>
+                        <button id="play-btn"><i class="fas fa-play"></i> </button>
+                        <button id="next-btn"><i class="fas fa-forward"></i> </button>
+                        <button id="favorite-btn"><i class="far fa-heart"></i> ❤️</button>
+                    </div>
+                </div>
+
+                <div class="current-playlist">
+                    <h3>📜 Current Album</h3>
+                    <ul id="current-playlist"></ul>
+                </div>
+            </div>
+
+            <!-- Albums View -->
+            <div class="view hidden" id="albums-view">
+                <h1>💿 Albums</h1>
+                <div class="albums-grid" id="albums-grid"></div>
+            </div>
+
+            <!-- Favorites View -->
+            <div class="view hidden" id="favorites-view">
+                <h1>❤️ Favorites</h1>
+                <ul id="favorites-list" class="favorites-list"></ul>
+            </div>
+
+            <!-- Recently Played View -->
+            <div class="view hidden" id="recently-played-view">
+                <h1>🕒 Recently Played</h1>
+                <ul id="recently-played-list" class="recently-played-list"></ul>
+            </div>
+
+            <!-- Top Charts View -->
+            <div class="view hidden" id="top-charts-view">
+                <h1>📈 Top Charts</h1>
+                <ul id="top-charts-list" class="top-charts-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="audio-player"></audio>
+
+    <script src="i.js"></script>
+</body>
+</html>
